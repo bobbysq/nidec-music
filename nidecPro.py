@@ -51,7 +51,7 @@ enable.low()
 led.high()
 
 try:
-    play_song(None)
+    play_chrp('chrp_files/grabbag.chrp', 1)
 except KeyboardInterrupt:
     print("Cancelled playback!")
 

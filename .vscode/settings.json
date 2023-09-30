@@ -11,5 +11,17 @@
         ".vscode\\Pico-W-Stub\\stubs"
     ],
     "micropico.syncFolder": "",
-    "micropico.openOnStart": true
+    "micropico.openOnStart": true,
+    "micropico.syncFileTypes": [
+        "py",
+        "txt",
+        "log",
+        "json",
+        "xml",
+        "html",
+        "js",
+        "css",
+        "mpy",
+        "chrp"
+    ]
 }
