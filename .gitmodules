@@ -1,0 +1,3 @@
+[submodule "chrpy"]
+	path = chrpy
+	url = https://github.com/bobbysq/chrpy.git
