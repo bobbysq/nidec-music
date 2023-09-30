@@ -1,3 +1,6 @@
 *.midi
 *.mid
 *.MID
+*.chrp
+
+.vscode/Pico-W-Stub
