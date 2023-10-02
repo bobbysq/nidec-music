@@ -20,7 +20,7 @@ converted_power = 65535 * (50 / 100.0) # Set power to 50%
 power.duty_u16(int(converted_power))
 
 def beep(hz, duration):
-    print(f'beeping at {hz} for {duration}')
+    # print(f'beeping at {hz} for {duration}')
     power.freq(hz)
     time.sleep_ms(duration)
 
@@ -34,11 +34,12 @@ def play_chrp(file, track):
         off = True
         while time.ticks_diff(time.ticks_ms(), start_tick) < note.off:
             if off: enable.high()#; print(f'off, will be on in {time.ticks_diff(time.ticks_ms(), start_tick) - note.on}')
-            if time.ticks_diff(time.ticks_ms(), start_tick) < note.on:
+            if time.ticks_diff(time.ticks_ms(), start_tick) > note.on:
                 #print('on')
                 off = False
                 enable.low()
-                power.freq(note.note)
+                # power.freq(note.note)
+                beep(note, note.off - note.on)
 
 def play_chrp_directly(file, track):
     with open(file, 'rb') as f:
@@ -63,11 +64,13 @@ def play_chrp_directly(file, track):
 
                     mute = True
                     while time.ticks_diff(time.ticks_ms(), start_tick) < off:
-                        if mute: enable.high()#; print(f'off, will be on in {time.ticks_diff(time.ticks_ms(), start_tick) - note.on}')
-                        if time.ticks_diff(time.ticks_ms(), start_tick) < on:
+                        if mute: enable.high()#; print(f'off, will be on in {on - time.ticks_diff(time.ticks_ms(), start_tick)}')
+                        if time.ticks_diff(time.ticks_ms(), start_tick) > on:
                             mute = False
                             enable.low()
-                            power.freq(note)
+                            # power.freq(note)
+                            beep(note, off - on)
+                    enable.high()
                     
             total_notes += track_len
 
@@ -77,7 +80,7 @@ enable.low()
 led.high()
 
 try:
-    play_chrp_directly('chrp_files/grabbag.chrp', 2)
+    play_chrp_directly('chrp_files/mario.chrp', 0)
 except KeyboardInterrupt:
     print("Cancelled playback!")
 
